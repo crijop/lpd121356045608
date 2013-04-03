@@ -71,6 +71,10 @@ except AttributeError:
 def teste():
   return _file.teste()
 teste = _file.teste
+
+def mytan(*args):
+  return _file.mytan(*args)
+mytan = _file.mytan
 # This file is compatible with both classic and new-style classes.
 
 
