@@ -19,7 +19,7 @@ class Scanner(threading.Thread):
             host, port = self.inq.get()
             
             sd = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  
-            print "porto: ", port      
+            print "\nporto: ", port      
             try:
                 # connect to the given host:port
                 sd.connect((host, port))
