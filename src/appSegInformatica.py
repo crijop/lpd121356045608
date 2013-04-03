@@ -18,7 +18,8 @@ for line in sys.stdin:
         print IP + ': ' + gi.country_code_by_addr(IP)
     except:
         continue
-    
+
+#Makefile    
 '''
 fileLog:
     python appSegInformatica.py < ../../../ufw.log |more
