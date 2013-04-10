@@ -54,4 +54,4 @@ def scan(host, start, stop, nthreads=MAX_THREADS):
             print '%s:%d %s' % (host, port, status)
 
 if __name__ == '__main__':
-    scan('192.168.1.64', 0, 1024)
+    scan('10.0.2.15', 0, 1024)
