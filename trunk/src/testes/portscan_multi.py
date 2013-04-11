@@ -19,18 +19,21 @@ class Scanner(threading.Thread):
             host, port = self.inq.get()
             
             sd = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  
-            print "\nporto: ", port      
-            try:
+            #print "\nporto: ", port      
+        
                 # connect to the given host:port
+            try:
                 sd.connect((host, port))
                 print "Vou conectar me"
+           
+            
             except socket.error:
                 # set the CLOSED flag
                 self.outq.put((host, port, 'CLOSED'))
             else:
                 self.outq.put((host, port, 'OPEN'))
                 sd.close()
-
+            
 def scan(host, start, stop, nthreads=MAX_THREADS):
     toscan = Queue.Queue()
     scanned = Queue.Queue()
@@ -54,4 +57,4 @@ def scan(host, start, stop, nthreads=MAX_THREADS):
             print '%s:%d %s' % (host, port, status)
 
 if __name__ == '__main__':
-    scan('10.0.2.15', 0, 1024)
+    scan('192.168.1.91', 0, 1024)
