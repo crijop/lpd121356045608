@@ -1,0 +1,18 @@
+ 
+:@B@@@@@@@B@@@B@B@B@B@B@@@B@B@B@B@B@B@@@B@B@B@B@B@@@B@B@B@BB
+0@@B@GMMBMBMBMBMBMBMBMBMBMBMBMBMBMBMBMBMBMBMBMBMBMBMBMMG@B@B
+j@B@                                                    .@B@
+j@@B.                                                   :B@B
+Y@B@.                  O que pretende?                  :@B@
+JB@@.                                                   :B@@
+Y@B@.                                                   :@B@
+J@@B.   Análise ao ficheiro de log da firewall?--> 1    :@@B
+J@B@.   PortScanning?----------------------------> 2    :@B@
+JB@B.   Analise conexões ativas?-----------------> 3    :B@B
+Y@B@.   Sair?------------------------------------> 0    :@B@
+jB@B.                                                   :B@@
+L@B@.                                                   :@B@
+j@@B                                                    :B@B
+J@B@                                                    .@@@
+PB@B@B@B@B@B@@@B@B@@@B@B@B@B@@@B@B@B@B@B@B@B@@@B@@@@@@@M@B@B
+ MB@@@B@@@B@@@B@B@@@@@@@B@B@B@B@B@B@B@B@B@B@B@B@@@B@B@B@B@B0
