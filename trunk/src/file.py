@@ -75,6 +75,10 @@ teste = _file.teste
 def mytan(*args):
   return _file.mytan(*args)
 mytan = _file.mytan
+
+def is_valid_ip(*args):
+  return _file.is_valid_ip(*args)
+is_valid_ip = _file.is_valid_ip
 # This file is compatible with both classic and new-style classes.
 
 
