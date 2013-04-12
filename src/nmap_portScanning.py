@@ -52,7 +52,8 @@ class PortScanning(object):
     def analiseIP(self, ip):
         ip.strip()
         
-        print ip.find(".")
+        
+        
         
         pass
     
