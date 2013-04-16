@@ -1,14 +1,19 @@
 '''
-Created on 3 de Abr de 2013
+Created on 15 de Abr de 2013
 
 @author: admin1
 '''
-import file
+import os
+import pickle
 
-lista = [[2,3],[1,2],[0,0],[1,2]]
-
-l = file.mytan(2.5, 2.0)
-
-print l
-for x in lista:
-    print x
+if __name__ == '__main__':
+    ano = 2002
+    nrDocentes = [299, 90, 0, 5, 5]
+    
+    print nrDocentes
+    ficheiro = open("mens.dat", "w")
+    pickle.dump(ano, ficheiro)
+    pickle.dump(nrDocentes, ficheiro)
+    ficheiro.close()
+    os.system("python Graficos.py")
+    pass
