@@ -6,7 +6,9 @@ Created on 11 de Abr de 2013
 '''
 from appSegInformatica import FicheiroLog, bcolors
 from nmap_portScanning import PortScanning
+from nmap_scanningConections import ScanningConections
 import os
+import sys
 
 
 class Dialgo(object):
@@ -28,7 +30,7 @@ class Dialgo(object):
     
     def validarDialgo(self):
         resposta = self.dIncial()
-        while (resposta != "1" or resposta != "2"):
+        while True:
             if resposta == "1":
                 
                 logFilesTitle = open("menus/FileLog.txt", "r")
@@ -37,8 +39,9 @@ class Dialgo(object):
                 print "(A qualquer altura introduza '0' para voltar ao menu anterior)"
                 caminhoFileLog = raw_input(bcolors.AZUL + "Introduza o caminho do ficheiro que deseja analisar: " + bcolors.ENDC)
                 while True:
-                    os.system("clear")
                     
+                    os.system("clear")
+                   
                     logFilesTitle = open("menus/FileLog.txt", "r")
                     print bcolors.AMARELO + logFilesTitle.read() + bcolors.ENDC
                     logFilesTitle.close()
@@ -51,7 +54,7 @@ class Dialgo(object):
                         pass
                     elif caminhoFileLog == "0":
                         
-                        self.dIncial()
+                        self.validarDialgo()
                         pass
                     else:
                         
@@ -65,13 +68,19 @@ class Dialgo(object):
             elif resposta == "2":
                             
                 PortScanning()
-                break
+               
+                resposta = self.dIncial()
+                
                 pass
             elif resposta == "3":
-                print bcolors.AMARELO + "Fazer ......" + bcolors.ENDC
+                ScanningConections()
                 
-                break
+                resposta = self.dIncial()
+                
                 pass
+            elif resposta == "0":
+                print "Aplicação desenvolvida por:\n\tAntónio Baião\n\tCarlos Palma"
+                sys.exit(0);
             else:
                 print bcolors.VERMELHO + "A sua resposta não é válida, volte a responder!" + bcolors.ENDC
                 resposta = self.dIncial()

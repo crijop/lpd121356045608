@@ -1,0 +1,11 @@
+:@B@@@@@@@B@@@B@B@B@B@B@@@B@B@B@B@B@B@@@B@B@B@B@B@@@B@B@B@BB
+0@@B@GMMBMBMBMBMBMBMBMBMBMBMBMBMBMBMBMBMBMBMBMBMBMBMBMMG@B@B
+j@@B.                                                   :B@B
+Y@B@.                  Opções extra                     :@B@
+Y@B@.                                                   :@B@
+J@@B.   Imprimir informação em PDF---------------> 1    :@@B
+J@B@.   Imprimir informação em CSV---------------> 2    :@B@
+Y@B@.   Voltar ao menu anterior sem fazer nada?--> 0    :@B@
+jB@B.                                                   :B@@
+PB@B@B@B@B@B@@@B@B@@@B@B@B@B@@@B@B@B@B@B@B@B@@@B@@@@@@@M@B@B
+ MB@@@B@@@B@@@B@B@@@@@@@B@B@B@B@B@B@B@B@B@B@B@B@@@B@B@B@B@B0

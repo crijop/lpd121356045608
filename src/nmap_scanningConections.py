@@ -1,19 +1,25 @@
-#!/usr/bin/env python
 #*-* encoding: utf-8 *-*
+'''
+Created on 15 de Abr de 2013
+
+@author: xama
+'''
+
+
 from appSegInformatica import bcolors
 from file import is_valid_ip
 import nmap
 import os
 
-class PortScanning(object):
+class ScanningConections(object):
     
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         
-      
+
         self.error = 0 
         while True:
             os.system("clear")
-            portScanningTitle = open("menus/portScanning.txt", "r")
+            portScanningTitle = open("menus/activeConections.txt", "r")
             print bcolors.AMARELO + portScanningTitle.read() + bcolors.ENDC
             portScanningTitle.close()
             
@@ -25,13 +31,13 @@ class PortScanning(object):
                 
           
             print "(A qualquer altura introduza '0' para voltar ao menu anterior)"
-            self.address = raw_input(bcolors.AZUL + "Introduza o endereço da rede a analisar:\t" + bcolors.ENDC)
-            self.mask = raw_input(bcolors.AZUL + "Introduza a mascara do endereço em decimal:\t" + bcolors.ENDC)
+            self.address = raw_input(bcolors.AZUL + "Introduza o endereço a analisar:\t" + bcolors.ENDC)
+            
             if self.address == "0":
                 
                 break
                 pass 
-            elif self.address != "" and self.analiseIP(self.address) != 0 and self.analiseMask(self.mask) != 0:
+            elif self.address != "" and self.analiseIP(self.address) != 0:
                 
                 self.makeScan()
                 break
@@ -49,8 +55,9 @@ class PortScanning(object):
         
         nm = nmap.PortScanner() 
         self.address.strip()
-        nm.scan(self.address + '/' + self.mask, '1-1024')
-
+        print "A procurar serviços ativos..."
+        nm.scan(self.address, '1-1024')
+        os.system("clear")
         # a more usefull example :
         for host in nm.all_hosts():
             print('----------------------------------------------------')
@@ -65,20 +72,19 @@ class PortScanning(object):
                     lport = nm[host][proto].keys()
                     lport.sort()
                     for port in lport:
-                        print('port : %s\tstate : %s \treason: %s' % (port, nm[host][proto][port]['state'], nm[host][proto][port]['reason']))
+                        print('port : %s\tstate : %s \tservice: %s' % (port, nm[host][proto][port]['state'], nm[host][proto][port]['name']))
             
         print('--------------TERMINEI-------------------------')
         raw_input("Prima enter para continuar...")
         self.extraMenu()
         pass
-    
     def extraMenu(self):
         
         extraMenu = open("menus/extraOptions.txt", "r")
         print bcolors.VERDE + extraMenu.read() + bcolors.ENDC
         
         pass
-    
+        
     def analiseIP(self, ip):
         
         return is_valid_ip(ip)
@@ -86,20 +92,8 @@ class PortScanning(object):
         
         pass
     
-    def analiseMask(self, mask):
-        
-        value = 0
-        
-        if mask >= 0 and mask <= 32:
-            
-            value = 1
-        else:
-            value = 0
-            pass
-            
-        
-        return value
-    pass
-        
+  
+
+
     
-    
+   
