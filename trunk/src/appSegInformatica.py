@@ -39,6 +39,7 @@ Classe de análise de ficheiro de logs
 class FicheiroLog:
     def __init__(self, caminhoFileLog):
         caminho = '../../../GeoIP.dat'
+        self.lista = []
         self.analiseFicheiroLog(caminho, caminhoFileLog)
         pass
     
@@ -63,11 +64,19 @@ class FicheiroLog:
             #print IP
             try:
                 print IP + ': ' +  mes + ': '+ dia + ': ' + hora + ' --> ' + gi.country_code_by_addr(IP)
+                code = gi.country_code_by_addr(IP)
+                self.lista.append((IP, mes, dia, hora, code))
             except:
                 continue
         pass
+    
+    def get_lista(self):
+        return self.lista
+        pass
 
     pass
+
+
     
 #Makefile    
 '''
