@@ -12,7 +12,13 @@ import sys
 
 
 class Dialgo(object):
+    '''
+    classseddddddddddddddddddddexdedxdexde
+    '''
     def __init__(self):
+        '''
+        Ola INIT
+        '''
         pass
     
     def dIncial(self):
@@ -29,6 +35,9 @@ class Dialgo(object):
         pass
     
     def validarDialgo(self):
+        """
+        FETIODDDDDDDDDDDSDDfrfg
+        """
         resposta = self.dIncial()
         while True:
             if resposta == "1":
