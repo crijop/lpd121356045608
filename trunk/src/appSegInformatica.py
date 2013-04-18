@@ -27,6 +27,11 @@ import sys
 
 #classe de Colorização
 class bcolors:
+    '''
+    bcolors permite colorir o output gerado no terminal
+    por forma a ser mais facil de interpertar
+    '''
+    
     #BOLD = '\033[1m'
     #FUNDO PRETO = '\033[40m'
     ROXO = '\033[95m' + '\033[1m' + '\033[40m'
@@ -37,6 +42,10 @@ class bcolors:
     ENDC = '\033[0m'
     
     def disable(self):
+        '''
+        desativa qualquer cor que tiver ativa 
+        no terminal
+        '''
         self.ROXO = ''
         self.AZUL = ''
         self.VERDE = ''
@@ -47,11 +56,18 @@ class bcolors:
     pass
 
 
-'''
-Classe de análise de ficheiro de logs
-'''
+
 class FicheiroLog:
+    '''
+    Classe de análise de ficheiro de logs
+    '''
     def __init__(self, caminhoFileLog):
+        '''
+        Inicializa a lista onde guardrá os objectos analizado
+        e chama o metodo que fará a analise
+        
+        Parametro: caminho para o ficheiro
+        '''
         caminho = 'GeoIP.dat'
         self.lista = []
         self.analiseFicheiroLog(caminho, caminhoFileLog)
@@ -62,6 +78,10 @@ class FicheiroLog:
     Recebe como parametro o caminho do file GeoIP.dat
     '''
     def analiseFicheiroLog(self, caminho, caminhoFileLog):
+        '''
+        Método que faz a análise do Ficheiro de log
+        Recebe como parametro o caminho do file GeoIP.dat
+        '''
         
         ficheiro = open(caminhoFileLog, "r")
         
@@ -92,12 +112,13 @@ class FicheiroLog:
         self.extraMenu()
         pass
     
-    def get_lista(self):
-        return self.lista
-        pass
-    
     def extraMenu(self):
+        '''
+        Menu com opções extra, tais como imprimir a informação em PDF,
+        CSV entre outros.
         
+        Este menu será apresentado no fim de cada acção
+        '''
         while True:
             os.system("clear")
             extraMenu = open("menus/extraOptionsLog.txt", "r")
@@ -112,8 +133,7 @@ class FicheiroLog:
                     pdf.add_page()
                     pdf.set_font('Times','',12)
                     for i in self.lista:
-                        for j in i:
-                            pdf.cell(0,5, j ,0,1)
+                        pdf.cell(0,5, str(i[0] + " - "+ i[1] + " - " + i[2] + " - " + i[3] + " - " + i[4]) ,0,1)
                     pdf.output('fileLog.pdf','F')
                     
                     print bcolors.AMARELO + "PDF gerado com sucesso" + bcolors.ENDC
@@ -130,7 +150,7 @@ class FicheiroLog:
                     with open('fileLog.csv', 'wb') as csvfile:
                         spamwriter = csv.writer(csvfile, delimiter=',')
                         for i in self.lista:
-                            print len(i)
+                            #print len(i)
                             spamwriter.writerow(i)
                     print bcolors.AMARELO + "CSV gerado com sucesso" + bcolors.ENDC
                     raw_input("Prima enter para continuar...")
@@ -144,18 +164,8 @@ class FicheiroLog:
             elif resposta == "3":
                 
                 self.infoForGraph()
-                '''
-                a_representar = self.countriesFreq
-                fig = figure()
-                plot = fig.add_subplot(111)
-                plot.set_title("FileLog - Access") #Titulo
-                plot.set_ylabel("How many access") # Etiqueta Y
-                plot.set_xlabel("Countries") # Etiqueta X
-                etiquetas = self.countries
-                plot.set_xticks(array(range(0, size(etiquetas))))
-                plot.set_xticklabels(etiquetas)
-                barras = bar(array(range(0, size(etiquetas))), a_representar, 0.10)
-                show()'''
+                
+                #Construção do grafico
                 
                 #figure(figsize=(4, 2)) # image dimensions   
                 title("Try Connections - FileLog", size='large')
@@ -191,10 +201,13 @@ class FicheiroLog:
     
 
     def infoForGraph(self):
+        '''
+        Constroi dicionario com informação 
+        para geração do gráfico estatistico
+        '''
         
         self.codeFreq = {}
-        self.countries = []
-        self.countriesFreq = []
+     
         for line in self.lista:
             
             if  line[4] in self.codeFreq:
@@ -204,12 +217,7 @@ class FicheiroLog:
                 self.codeFreq[line[4]] = 1
                 pass
             
-        for key, value in self.codeFreq.iteritems():
-            
-            self.countries.append(key)
-            self.countriesFreq.append(value)
-            
-        pass
+        
        
     pass
             

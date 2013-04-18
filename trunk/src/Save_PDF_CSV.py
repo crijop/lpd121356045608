@@ -5,22 +5,32 @@ Created on 14 de Abr de 2013
 @author: admin1
 '''
 from fpdf import FPDF
-from xlwt import Workbook
-from xlwt.Formatting import Borders
-import xlwt
+
 from lxml.html.builder import TITLE
 
 
 ########################################################################
 class PDF(FPDF):
+    '''
+    Responsavel por gerár o PDF com 
+    informação conultada pelo utilizador
+    '''
    
     def setTitle(self, title):
+        '''
+        Adiciona o titulo ao pdf
+        '''
         
         self.title = title
        
         pass
     
     def header(self,):
+        '''
+        Constroi o ficheiro
+        pdf com informação 
+        gerada na pesquisa
+        '''
         # Logo
         #self.image('/home/admin1/Mestrado/2Trimestre/LPD/TrabalhoPratico/logo_estig.png',10,8,33)
         # Arial bold 15
@@ -34,6 +44,9 @@ class PDF(FPDF):
 
     # Page footer
     def footer(self):
+        '''
+        Adiciona os números de página
+        '''
         # Position at 1.5 cm from bottom
         self.set_y(-15)
         # Arial italic 8
@@ -42,6 +55,7 @@ class PDF(FPDF):
         self.cell(0,10,'Pagina '+str(self.page_no()),0,0,'C')
  
 #----------------------------------------------------------------------
+'''
 if __name__ == "__main__":
     pdf=PDF()
     pdf.setTitle("ola")
@@ -53,4 +67,5 @@ if __name__ == "__main__":
     pdf.output('tuto2.pdf','F')
 
 #if __name__ == '__main__':
-#    ExportData()            
+#    ExportData()
+'''            

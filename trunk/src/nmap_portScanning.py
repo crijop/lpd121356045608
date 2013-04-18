@@ -8,8 +8,16 @@ import os
 import csv
 
 class PortScanning(object):
+    '''
+    Realiza portscanning a todas as maquinas de uma rede.
+    ''' 
     
     def __init__(self):
+        '''
+        Pergunta ao utilizador qual o ip da rede, e a mascara
+        
+        depois de os dados introduzidos será feito o scan
+        '''
         
       
         self.error = 0 
@@ -47,7 +55,11 @@ class PortScanning(object):
             
             pass
         pass
-    def makeScan(self):   
+    def makeScan(self):
+        '''
+        Realiza o portScanning com base na informação introduzida pelo 
+        utilizador. Imprimindo depois o resultado na consola
+        '''   
         
         nm = nmap.PortScanner() 
         self.address.strip()
@@ -103,7 +115,12 @@ class PortScanning(object):
         pass
     
     def extraMenu(self):
+        '''
+        Menu com opções extra, tais como imprimir a informação em PDF,
+        CSV entre outros.
         
+        Este menu será apresentado no fim de cada acção
+        '''
         while True:
             os.system("clear")
             extraMenu = open("menus/extraOptions.txt", "r")
@@ -135,7 +152,7 @@ class PortScanning(object):
                     with open('portScanning.csv', 'wb') as csvfile:
                         spamwriter = csv.writer(csvfile, delimiter=',')
                         for i in self.valuesToSaveCSV:
-                            print len(i)
+                            #print len(i)
                             spamwriter.writerow(i)
                     print bcolors.AMARELO + "CSV gerado com sucesso" + bcolors.ENDC
                     raw_input("Prima enter para continuar...")
@@ -154,6 +171,10 @@ class PortScanning(object):
         pass
     
     def analiseIP(self, ip):
+        '''
+        Analisa se o ip é valido utilizando metodo construido
+        em C
+        '''
         
         return is_valid_ip(ip)
 
@@ -161,6 +182,9 @@ class PortScanning(object):
         pass
     
     def analiseMask(self, mask):
+        '''
+        Analisa se a mascara é correcta
+        '''
         
         value = 0
         

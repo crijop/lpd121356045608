@@ -14,9 +14,15 @@ import nmap
 import os
 
 class ScanningConections(object):
-    
+    '''
+    Realiza o scan das conexões ativas de uma maquina.
+    ''' 
     def __init__(self, *args, **kwargs):
+        '''
+        Pergunta ao utilizador qual o ip da maquina
         
+        depois de os dados introduzidos será feito o scan
+        '''
 
         self.error = 0 
         while True:
@@ -54,7 +60,10 @@ class ScanningConections(object):
             pass
         pass
     def makeScan(self):   
-        
+        '''
+        Realiza o scan com base na informação introduzida pelo 
+        utilizador. Imprimindo depois o resultado na consola
+        ''' 
         nm = nmap.PortScanner() 
         self.address.strip()
         print "A procurar serviços ativos..."
@@ -108,7 +117,12 @@ class ScanningConections(object):
         self.extraMenu()
         pass
     def extraMenu(self):
+        '''
+        Menu com opções extra, tais como imprimir a informação em PDF,
+        CSV entre outros.
         
+        Este menu será apresentado no fim de cada acção
+        '''
         while True:
             os.system("clear")
             extraMenu = open("menus/extraOptions.txt", "r")
@@ -124,7 +138,7 @@ class ScanningConections(object):
                     pdf.set_font('Times','',12)
                     for i in self.valuesToSavePDF:                        
                         pdf.cell(0,5, i ,0,1)
-                    pdf.output('portScanning.pdf','F')
+                    pdf.output('scanningConnections.pdf','F')
                     
                     print bcolors.AMARELO + "PDF gerado com sucesso" + bcolors.ENDC
                     raw_input("Prima enter para continuar...")
@@ -137,10 +151,10 @@ class ScanningConections(object):
             
             elif resposta == "2":
                 if len(self.valuesToSaveCSV) > 3:
-                    with open('portScanning.csv', 'wb') as csvfile:
+                    with open('scanningConnections.csv', 'wb') as csvfile:
                         spamwriter = csv.writer(csvfile, delimiter=',')
                         for i in self.valuesToSaveCSV:
-                            print len(i)
+                            #print len(i)
                             spamwriter.writerow(i)
                     print bcolors.AMARELO + "CSV gerado com sucesso" + bcolors.ENDC
                     raw_input("Prima enter para continuar...")
@@ -161,7 +175,10 @@ class ScanningConections(object):
     
         
     def analiseIP(self, ip):
-        
+        '''
+        Analisa se o ip é valido utilizando metodo construido
+        em C
+        '''
         return is_valid_ip(ip)
 
         
