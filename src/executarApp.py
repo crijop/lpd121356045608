@@ -13,15 +13,20 @@ import sys
 
 class Dialgo(object):
     '''
-    classseddddddddddddddddddddexdedxdexde
+    Classe responsável por gerár o primeiro menu de 
+    dialogos que será a porta de interacção com o utilizador
     '''
     def __init__(self):
         '''
-        Ola INIT
+        Construtor da classe que nao vai desenhpenhar nenhuma função
         '''
         pass
     
     def dIncial(self):
+        '''
+        Responsavel por mostrar a caixa de menus ao utilizador e 
+        devolver a resposta que o utilizador introduzio
+        '''
         os.system("clear")
         mainMenu = open("menus/mainMenu.txt", "r")
         print bcolors.VERDE + mainMenu.read() + bcolors.ENDC
@@ -36,7 +41,10 @@ class Dialgo(object):
     
     def validarDialgo(self):
         """
-        FETIODDDDDDDDDDDSDDfrfg
+        Consoante a resposta do utilizador assim será a acção
+        que  será desencadeada.
+        
+        O utilizador terá ao dispor 4 opções.
         """
         resposta = self.dIncial()
         while True:
