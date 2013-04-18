@@ -73,6 +73,7 @@ class Dialgo(object):
                         
                         pass
                     pass
+                resposta = self.dIncial()
                 pass
             elif resposta == "2":
                             
