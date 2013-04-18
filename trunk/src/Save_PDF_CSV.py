@@ -8,69 +8,27 @@ from fpdf import FPDF
 from xlwt import Workbook
 from xlwt.Formatting import Borders
 import xlwt
+from lxml.html.builder import TITLE
 
 
-class ExportData(object):
-    def __init__(self):
-        wb = Workbook()
-        self.createXLS(wb)
-        wb.save('saida.xls')
-        pass
-        
-    def createXLS(self, wb):
-        #Nome Folha
-        ws0 = wb.add_sheet('Folha')
-    
-        #Estilos
-        style = xlwt.easyxf('pattern: pattern solid, fore_colour green')
-        borders = Borders()
-        borders.left    = 5
-        borders.right   = 5
-        borders.top     = 5
-        borders.bottom  = 5
-        style.borders = borders
-        
-        listaCAB = ["Teste", "Teste1"]
-        
-        #Cabeçalhos do XLS
-        col = 0
-        row = 0
-        for lCab in listaCAB:
-            ws0.write(row, col, lCab, style)
-            col += 1
-        
-        lista = []
-        
-        for a in range(0, 10):
-            lista.append([a, 0, 0])
-            
-        row = 1
-        col = 0
-       
-        for linha in lista:
-            for l in linha:
-                ws0.write(row, col, l)
-                col += 1
-            col = 0
-            row += 1
-            pass
-        pass
-    
-    def createPDF(self):
-        pass
-
- 
 ########################################################################
 class PDF(FPDF):
-    def header(self):
+   
+    def setTitle(self, title):
+        
+        self.title = title
+       
+        pass
+    
+    def header(self,):
         # Logo
-        self.image('/home/admin1/Mestrado/2Trimestre/LPD/TrabalhoPratico/logo_estig.png',10,8,33)
+        #self.image('/home/admin1/Mestrado/2Trimestre/LPD/TrabalhoPratico/logo_estig.png',10,8,33)
         # Arial bold 15
         self.set_font('Arial','B',15)
         # Move to the right
         self.cell(80)
         # Title
-        self.cell(30,10,'Title',1,0,'C')
+        self.cell(len(self.title) * 3,10, self.title ,1,0,'C')
         # Line break
         self.ln(20)
 
@@ -86,6 +44,7 @@ class PDF(FPDF):
 #----------------------------------------------------------------------
 if __name__ == "__main__":
     pdf=PDF()
+    pdf.setTitle("ola")
     pdf.alias_nb_pages()
     pdf.add_page()
     pdf.set_font('Times','',12)

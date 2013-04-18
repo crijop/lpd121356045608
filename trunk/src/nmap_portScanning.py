@@ -2,8 +2,10 @@
 #*-* encoding: utf-8 *-*
 from appSegInformatica import bcolors
 from file import is_valid_ip
+from Save_PDF_CSV import PDF
 import nmap
 import os
+import csv
 
 class PortScanning(object):
     
@@ -49,22 +51,50 @@ class PortScanning(object):
         
         nm = nmap.PortScanner() 
         self.address.strip()
+        print "A procurar portos abertos..."
         nm.scan(self.address + '/' + self.mask, '1-1024')
-
+        os.system("clear")
+        
+        self.valuesToSavePDF = []
+        self.valuesToSaveCSV = []
+        
+        self.valuesToSavePDF.append("Network address: "+ self.address)
+        self.valuesToSavePDF.append("Network mask: " + self.mask)
+        self.valuesToSavePDF.append("Number of ports to search: " + '1-1024')
+        
+        self.valuesToSaveCSV.append(("Network adress: ", self.address))
+        self.valuesToSaveCSV.append(("Network mask: " , self.mask))
+        self.valuesToSaveCSV.append(("Number of ports to search: " ,'1-1024'))
         # a more usefull example :
         for host in nm.all_hosts():
+            self.valuesToSaveCSV.append((" "))
+            self.valuesToSavePDF.append('----------------------------------------------------')
             print('----------------------------------------------------')
+            
+            self.valuesToSaveCSV.append(('Host : ', host, '(' +nm[host].hostname() + ')'))
+            self.valuesToSavePDF.append('Host : %s (%s)' % (host, nm[host].hostname()))
             print('Host : %s (%s)' % (host, nm[host].hostname()))
+            
+            self.valuesToSaveCSV.append(('State : ', nm[host].state()))
+            self.valuesToSavePDF.append('State : %s' % nm[host].state())
             print('State : %s' % nm[host].state())
             
             for proto in nm[host].all_protocols():
                 if proto != "addresses":
+                    self.valuesToSaveCSV.append((" "))
+                    self.valuesToSavePDF.append('----------')
                     print('----------')
+                    
+                    self.valuesToSaveCSV.append(('Protocol : ', proto))
+                    self.valuesToSavePDF.append('Protocol : %s' % proto)
                     print('Protocol : %s' % proto)
-            
+                    
                     lport = nm[host][proto].keys()
                     lport.sort()
                     for port in lport:
+                        
+                        self.valuesToSaveCSV.append(('port : ', port, 'state : ',nm[host][proto][port]['state'], 'reason : ', nm[host][proto][port]['reason'] ))                        
+                        self.valuesToSavePDF.append('port : %s\tstate : %s \treason: %s' % (port, nm[host][proto][port]['state'], nm[host][proto][port]['reason']))
                         print('port : %s\tstate : %s \treason: %s' % (port, nm[host][proto][port]['state'], nm[host][proto][port]['reason']))
             
         print('--------------TERMINEI-------------------------')
@@ -74,9 +104,53 @@ class PortScanning(object):
     
     def extraMenu(self):
         
-        extraMenu = open("menus/extraOptions.txt", "r")
-        print bcolors.VERDE + extraMenu.read() + bcolors.ENDC
-        
+        while True:
+            os.system("clear")
+            extraMenu = open("menus/extraOptions.txt", "r")
+            print bcolors.VERDE + extraMenu.read() + bcolors.ENDC
+            resposta = raw_input(bcolors.AZUL + "Faça a sua escolha: " + bcolors.ENDC)
+            
+            if resposta == "1":
+                if len(self.valuesToSavePDF) > 3:
+                    pdf = PDF()
+                    pdf.setTitle("PortScanning")
+                    pdf.alias_nb_pages()
+                    pdf.add_page()
+                    pdf.set_font('Times','',12)
+                    for i in self.valuesToSavePDF:
+                        pdf.cell(0,5, i ,0,1)
+                    pdf.output('portScanning.pdf','F')
+                    
+                    print bcolors.AMARELO + "PDF gerado com sucesso" + bcolors.ENDC
+                    raw_input("Prima enter para continuar...")
+                    break
+                else:
+                    print bcolors.VERMELHO + "Não é possivel gerar qualquer resultado" + bcolors.ENDC
+                    raw_input("Prima enter para continuar...")
+                    break        
+                pass
+            
+            elif resposta == "2":
+                if len(self.valuesToSaveCSV) > 3:
+                    with open('portScanning.csv', 'wb') as csvfile:
+                        spamwriter = csv.writer(csvfile, delimiter=',')
+                        for i in self.valuesToSaveCSV:
+                            print len(i)
+                            spamwriter.writerow(i)
+                    print bcolors.AMARELO + "CSV gerado com sucesso" + bcolors.ENDC
+                    raw_input("Prima enter para continuar...")
+                    break 
+                else:
+                    print bcolors.VERMELHO + "Não é possivel gerar qualquer resultado" + bcolors.ENDC
+                    raw_input("Prima enter para continuar...")
+                    break   
+                       
+                pass
+             
+            elif resposta == "0":
+                break
+                pass
+            
         pass
     
     def analiseIP(self, ip):
@@ -90,7 +164,7 @@ class PortScanning(object):
         
         value = 0
         
-        if mask >= 0 and mask <= 32:
+        if int(mask) >= 0 and int(mask) <= 32:
             
             value = 1
         else:
